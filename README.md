@@ -1,6 +1,8 @@
 # CertiMint-Engine
 Our video demo : 
-(./Untitled video - Made with Clipchamp (1).mp4)
+
+https://github.com/user-attachments/assets/7b300e2f-c2ea-46ca-ad1d-7b9f57496ccf
+
 
 
 # Assignment Validation System
