@@ -10,7 +10,12 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Welcome to the show</h1>
+      <div className="welcome-alert" style={{ textAlign: 'center', marginTop: '50px' }}>
+        <h1>Welcome to the show</h1>
+        <p>
+          This website is currently under development. You can log in using your Google account to access the upload page. But the rest of the features are not yet implemented but will be available in 1-2 days.
+        </p>
+      </div>
       <GoogleLogin
         onSuccess={credentialResponse => {
           const decoded = jwtDecode(credentialResponse.credential);
