@@ -1,0 +1,591 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+// Colors
+$bg-primary: #1A1A1A;
+$bg-secondary: #282828;
+$bg-tertiary: #252525;
+$bg-quaternary: #2d2d44;
+$border-color: #333;
+$border-light: #555;
+$text-primary: #e0e0e0;
+$text-secondary: #c1c1c1;
+$text-muted: #a0a0a0;
+$text-light: #8c8c8c;
+$accent-color: #5c7cfa;
+$accent-hover: #4c6ef5;
+$accent-light: #748fff;
+$danger-color: #ff5252;
+$success-color: #4caf50;
+$warning-color: #FEA016;
+$white: #ffffff;
+
+// Spacing
+$spacing-xs: 0.5rem;
+$spacing-sm: 0.75rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+
+// Borders
+$border-radius-sm: 3px;
+$border-radius-md: 6px;
+$border-radius-lg: 8px;
+$border-radius-xl: 12px;
+
+// Typography
+$font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+$font-family-monospace: 'Poppins', sans-serif;
+$font-size-xs: 0.8rem;
+$font-size-sm: 0.85rem;
+$font-size-md: 0.9rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.1rem;
+$font-size-xl: 1.5rem;
+$font-size-xxl: 1.8rem;
+
+// Shadows
+$shadow-default: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+// Transitions
+$transition-default: all 0.2s ease;
+
+// Breakpoints
+$breakpoint-md: 768px;
+
+// Mixins
+@mixin flex($direction: row, $justify: flex-start, $align: stretch) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin button-base {
+  cursor: pointer;
+  font-family: $font-family-monospace;
+  font-weight: 500;
+  border-radius: $border-radius-md;
+  transition: $transition-default;
+}
+
+@mixin panel {
+  background-color: $bg-secondary;
+  border-radius: $border-radius-xl;
+  padding: $spacing-lg;
+  // border: 1px solid $border-color;
+}
+
+@mixin status-color($color) {
+  color: $color;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $bg-primary;
+  color: $text-primary;
+  font-family: $font-family-primary;
+}
+
+.dashboard-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-xl;
+  background-color: $bg-primary;
+  color: $text-primary;
+  border-radius: $border-radius-xl;
+  position: relative;
+}
+
+.header {
+  @include flex(row, space-between, center);
+  margin-bottom: $spacing-xl;
+  padding-bottom: $spacing-md;
+  border-bottom: 1px solid $border-color;
+  
+  .user-profile {
+    @include flex(row, flex-start, center);
+    gap: $spacing-md;
+    
+    .profile-image {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .profile-placeholder {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: $accent-color;
+      @include flex(row, center, center);
+      color: $white;
+      font-weight: 600;
+      font-size: $font-size-lg;
+      border: 2px solid $accent-light;
+    }
+    
+    h1 {
+      font-size: $font-size-xxl;
+      font-weight: 500;
+      color: $white;
+      font-family: $font-family-monospace;
+      margin: 0;
+    }
+  }
+  
+  &-right {
+    @include flex(row);
+    gap: $spacing-md;
+  }
+}
+
+.back-btn, .logout-btn {
+  @include button-base;
+  padding: $spacing-xs $spacing-md;
+  background-color: #3E3E3E;
+  color: $text-primary;
+  border: none;
+  
+  &:hover {
+    background-color: $border-color;
+  }
+}
+
+
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-xl;
+  align-items: start;
+}
+
+/* Left Panel Styles */
+.left-panel {
+  @include panel;
+  
+  .assignment-counter {
+    font-size: 15px;
+    padding: 0.7rem;
+    display: inline-block;
+    font-family: $font-family-monospace;
+    background: #283A2E;
+    color: #2CBB5D;
+    border-radius: $border-radius-lg;
+    margin-bottom: $spacing-lg;
+  }
+  
+  .subject-input {
+    margin-bottom: $spacing-lg;
+    
+    label {
+      display: block;
+      font-size: $font-size-lg;
+      margin-bottom: $spacing-xs;
+      color: $text-secondary;
+      font-family: $font-family-monospace;
+    }
+    
+    input {
+      width: 100%;
+      padding: $spacing-sm;
+      background-color: transparent;
+      color: $white;
+      border: none;
+      border-bottom: 1px solid $border-light;
+      font-family: $font-family-monospace;
+      font-size: $font-size-base;
+      transition: border-color 0.2s;
+      margin-bottom: $spacing-lg;
+      
+      &:focus {
+        outline: none;
+        border-color: $accent-color;
+      }
+    }
+  }
+  
+  .assignment-selection {
+    margin-bottom: $spacing-lg;
+    
+    label {
+      display: block;
+      font-size: $font-size-lg;
+      margin-bottom: $spacing-xs;
+      color: $text-secondary;
+      font-family: $font-family-monospace;
+    }
+    
+    select {
+      width: 100%;
+      padding: $spacing-sm;
+      background-color: $bg-tertiary;
+      color: $white;
+      border: 1px solid $border-color;
+      border-radius: $border-radius-md;
+      font-size: $font-size-md;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.7rem center;
+      background-size: 1rem;
+    }
+  }
+  
+  .assignments-table {
+    border-radius: $border-radius-lg;
+    background-color: $bg-tertiary;
+    overflow: hidden;
+    
+    .table-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: $spacing-sm $spacing-md;
+      background-color: $border-color;
+      font-weight: 600;
+    }
+    
+    .table-body {
+      max-height: 250px;
+      overflow-y: auto;
+    }
+    
+    .table-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: $spacing-sm $spacing-md;
+      border-bottom: 1px solid $border-color;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+.status {
+    text-align: center;
+    padding: 4px;
+    border-radius: 8px;
+    font-size: $font-size-sm;
+  &-submitted {
+    @include status-color($success-color);
+    background: #283A2E;
+    width: 90px;
+  }
+  
+  &-pending {
+    width: 80px;
+    background: #544125e7;
+    @include status-color($warning-color);
+  }
+  
+  &-not-submitted {
+    width: 110px;
+    background: #3A2A2Ae7;
+    @include status-color($danger-color);
+  }
+}
+
+/* Right Panel Styles */
+.right-panel {
+  @include panel;
+  @include flex(column, flex-start);
+  height: auto;
+  min-height: 300px;
+  
+  .drop-area {
+    padding: 3rem $spacing-xl;
+    border: 2px dashed #4a4a5e;
+    border-radius: $border-radius-lg;
+    text-align: center;
+    transition: $transition-default;
+    margin-bottom: $spacing-lg;
+    background-color: $bg-tertiary;
+    
+    &.dragging {
+      border-color: $accent-color;
+      background-color: $bg-quaternary;
+    }
+    
+    &.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .drop-icon {
+      margin-bottom: $spacing-md;
+      color: $accent-color;
+    }
+    
+    p {
+      margin: $spacing-xs 0;
+      color: $text-secondary;
+      font-size: $font-size-base;
+    }
+    
+    .file-size-info {
+      font-size: $font-size-sm;
+      color: $text-light;
+      margin-top: $spacing-xs;
+    }
+    
+    .choose-file {
+      color: $accent-color;
+      cursor: pointer;
+      text-decoration: underline;
+      
+      &:hover {
+        color: $accent-light;
+      }
+    }
+  }
+  
+  .file-item {
+    @include flex(row, flex-start, center);
+    background-color: $bg-tertiary;
+    border-radius: $border-radius-md;
+    padding: $spacing-md;
+    margin-bottom: $spacing-sm;
+    transition: $transition-default;
+    border: 1px solid $border-color;
+    
+    &:hover {
+      border-color: $accent-color;
+    }
+    
+    .file-icon {
+      margin-right: $spacing-md;
+      flex-shrink: 0;
+    }
+    
+    .file-info {
+      flex-grow: 1;
+      
+      .file-name {
+        font-size: $font-size-md;
+        font-weight: 500;
+        margin-bottom: $spacing-xs;
+      }
+      
+      .progress-bar-container {
+        height: 6px;
+        background-color: $border-color;
+        border-radius: $border-radius-sm;
+        overflow: hidden;
+        margin-bottom: $spacing-xs;
+        
+        .progress-bar {
+          height: 100%;
+          background-color: $accent-color;
+          transition: width 0.3s ease;
+        }
+      }
+      
+      .progress-text {
+        font-size: $font-size-xs;
+        color: $text-muted;
+      }
+    }
+    
+    .remove-btn {
+      background: none;
+      border: none;
+      color: $danger-color;
+      cursor: pointer;
+      font-size: $font-size-base;
+      padding: $spacing-xs;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      @include flex(row, center, center);
+      transition: $transition-default;
+      
+      &:hover {
+        background-color: #3a3a4a;
+      }
+    }
+  }
+  
+  .action-buttons {
+    @include flex(row, flex-end);
+    gap: $spacing-md;
+    margin-top: $spacing-md;
+    
+    button {
+      @include button-base;
+      padding: .7rem 1rem;
+      border-radius: 8px;
+      font-size: $font-size-sm;
+    }
+    
+    .cancel-btn {
+      background-color: $border-color;
+      color: $text-secondary;
+      border: none;
+      
+      &:hover {
+        background-color: #444;
+      }
+    }
+    
+    .upload-btn {
+      background-color: $accent-color;
+      color: $white;
+      border: none;
+      
+      &:hover {
+        background-color: $accent-hover;
+      }
+      
+      &.disabled {
+        background-color: #444;
+        color: #888;
+        cursor: not-allowed;
+      }
+    }
+  }
+  
+  .review-notification {
+    text-align: center;
+    padding: $spacing-xl;
+    
+    .review-icon {
+      margin-bottom: $spacing-lg;
+    }
+    
+    h3 {
+      font-size: $font-size-xl;
+      color: $white;
+      margin-bottom: $spacing-md;
+    }
+    
+    p {
+      color: $text-muted;
+      margin-bottom: $spacing-xl;
+      line-height: 1.6;
+    }
+    
+    .submit-another-btn {
+      @include button-base;
+      background-color: $accent-color;
+      color: $white;
+      border: none;
+      padding: $spacing-sm $spacing-xl;
+      
+      &:hover {
+        background-color: $accent-hover;
+      }
+    }
+  }
+}
+
+.countdown-timer {
+  display: block;
+  margin: 10px 0;
+  color: #ff9800;
+  font-weight: 500;
+}
+
+.countdown-timer strong {
+  background-color: #2d2d44;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 1.1rem;
+}
+
+.submit-another-btn.disabled {
+  background-color: #444;
+  color: #888;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Toast Customization */
+.Toastify {
+  &__toast {
+    background-color: $bg-tertiary !important;
+    color: $text-primary !important;
+    
+    &--success {
+      border-left: 4px solid $success-color !important;
+    }
+    
+    &--error {
+      border-left: 4px solid $danger-color !important;
+    }
+  }
+  
+  &__progress-bar {
+    background-color: $accent-color !important;
+  }
+}
+
+/* Loading spinner animation for upload button */
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spinner {
+  animation: rotate 1.5s linear infinite;
+  width: 18px;
+  height: 18px;
+}
+
+.spinner-path {
+  stroke: white;
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+.loading-text {
+  font-size: 0.9rem;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+/* Make sure the cancel button is also disabled during upload */
+.cancel-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: $breakpoint-md) {
+  .dashboard-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .left-panel {
+    margin-bottom: $spacing-md;
+  }
+}

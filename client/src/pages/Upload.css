@@ -1,0 +1,491 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1A1A1A;
+  color: #e0e0e0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.dashboard-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #1A1A1A;
+  color: #e0e0e0;
+  border-radius: 12px;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #333;
+}
+.header .user-profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+.header .user-profile .profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.header .user-profile .profile-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #5c7cfa;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: 2px solid #748fff;
+}
+.header .user-profile h1 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+}
+.header-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.back-btn, .logout-btn {
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  padding: 0.5rem 1rem;
+  background-color: #3E3E3E;
+  color: #e0e0e0;
+  border: none;
+}
+.back-btn:hover, .logout-btn:hover {
+  background-color: #333;
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Left Panel Styles */
+.left-panel {
+  background-color: #282828;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+.left-panel .assignment-counter {
+  font-size: 15px;
+  padding: 0.7rem;
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
+  background: #283A2E;
+  color: #2CBB5D;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+.left-panel .subject-input {
+  margin-bottom: 1.5rem;
+}
+.left-panel .subject-input label {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #c1c1c1;
+  font-family: "Poppins", sans-serif;
+}
+.left-panel .subject-input input {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: transparent;
+  color: #ffffff;
+  border: none;
+  border-bottom: 1px solid #555;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  margin-bottom: 1.5rem;
+}
+.left-panel .subject-input input:focus {
+  outline: none;
+  border-color: #5c7cfa;
+}
+.left-panel .assignment-selection {
+  margin-bottom: 1.5rem;
+}
+.left-panel .assignment-selection label {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #c1c1c1;
+  font-family: "Poppins", sans-serif;
+}
+.left-panel .assignment-selection select {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #252525;
+  color: #ffffff;
+  border: 1px solid #333;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  background-size: 1rem;
+}
+.left-panel .assignments-table {
+  border-radius: 8px;
+  background-color: #252525;
+  overflow: hidden;
+}
+.left-panel .assignments-table .table-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0.75rem 1rem;
+  background-color: #333;
+  font-weight: 600;
+}
+.left-panel .assignments-table .table-body {
+  max-height: 250px;
+  overflow-y: auto;
+}
+.left-panel .assignments-table .table-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #333;
+}
+.left-panel .assignments-table .table-row:last-child {
+  border-bottom: none;
+}
+
+.status {
+  text-align: center;
+  padding: 4px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+.status-submitted {
+  color: #4caf50;
+  background: #283A2E;
+  width: 90px;
+}
+.status-pending {
+  width: 80px;
+  background: rgba(84, 65, 37, 0.9058823529);
+  color: #FEA016;
+}
+.status-not-submitted {
+  width: 110px;
+  background: rgba(58, 42, 42, 0.9058823529);
+  color: #ff5252;
+}
+
+/* Right Panel Styles */
+.right-panel {
+  background-color: #282828;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: auto;
+  min-height: 300px;
+}
+.right-panel .drop-area {
+  padding: 3rem 2rem;
+  border: 2px dashed #4a4a5e;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.2s ease;
+  margin-bottom: 1.5rem;
+  background-color: #252525;
+}
+.right-panel .drop-area.dragging {
+  border-color: #5c7cfa;
+  background-color: #2d2d44;
+}
+.right-panel .drop-area.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.right-panel .drop-area .drop-icon {
+  margin-bottom: 1rem;
+  color: #5c7cfa;
+}
+.right-panel .drop-area p {
+  margin: 0.5rem 0;
+  color: #c1c1c1;
+  font-size: 1rem;
+}
+.right-panel .drop-area .file-size-info {
+  font-size: 0.85rem;
+  color: #8c8c8c;
+  margin-top: 0.5rem;
+}
+.right-panel .drop-area .choose-file {
+  color: #5c7cfa;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.right-panel .drop-area .choose-file:hover {
+  color: #748fff;
+}
+.right-panel .file-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #252525;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  transition: all 0.2s ease;
+  border: 1px solid #333;
+}
+.right-panel .file-item:hover {
+  border-color: #5c7cfa;
+}
+.right-panel .file-item .file-icon {
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+.right-panel .file-item .file-info {
+  flex-grow: 1;
+}
+.right-panel .file-item .file-info .file-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+.right-panel .file-item .file-info .progress-bar-container {
+  height: 6px;
+  background-color: #333;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+.right-panel .file-item .file-info .progress-bar-container .progress-bar {
+  height: 100%;
+  background-color: #5c7cfa;
+  transition: width 0.3s ease;
+}
+.right-panel .file-item .file-info .progress-text {
+  font-size: 0.8rem;
+  color: #a0a0a0;
+}
+.right-panel .file-item .remove-btn {
+  background: none;
+  border: none;
+  color: #ff5252;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+.right-panel .file-item .remove-btn:hover {
+  background-color: #3a3a4a;
+}
+.right-panel .action-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: stretch;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.right-panel .action-buttons button {
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+.right-panel .action-buttons .cancel-btn {
+  background-color: #333;
+  color: #c1c1c1;
+  border: none;
+}
+.right-panel .action-buttons .cancel-btn:hover {
+  background-color: #444;
+}
+.right-panel .action-buttons .upload-btn {
+  background-color: #5c7cfa;
+  color: #ffffff;
+  border: none;
+}
+.right-panel .action-buttons .upload-btn:hover {
+  background-color: #4c6ef5;
+}
+.right-panel .action-buttons .upload-btn.disabled {
+  background-color: #444;
+  color: #888;
+  cursor: not-allowed;
+}
+.right-panel .review-notification {
+  text-align: center;
+  padding: 2rem;
+}
+.right-panel .review-notification .review-icon {
+  margin-bottom: 1.5rem;
+}
+.right-panel .review-notification h3 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+.right-panel .review-notification p {
+  color: #a0a0a0;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+.right-panel .review-notification .submit-another-btn {
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background-color: #5c7cfa;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 2rem;
+}
+.right-panel .review-notification .submit-another-btn:hover {
+  background-color: #4c6ef5;
+}
+
+.countdown-timer {
+  display: block;
+  margin: 10px 0;
+  color: #ff9800;
+  font-weight: 500;
+}
+
+.countdown-timer strong {
+  background-color: #2d2d44;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 1.1rem;
+}
+
+.submit-another-btn.disabled {
+  background-color: #444;
+  color: #888;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Toast Customization */
+.Toastify__toast {
+  background-color: #252525 !important;
+  color: #e0e0e0 !important;
+}
+.Toastify__toast--success {
+  border-left: 4px solid #4caf50 !important;
+}
+.Toastify__toast--error {
+  border-left: 4px solid #ff5252 !important;
+}
+.Toastify__progress-bar {
+  background-color: #5c7cfa !important;
+}
+
+/* Loading spinner animation for upload button */
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spinner {
+  animation: rotate 1.5s linear infinite;
+  width: 18px;
+  height: 18px;
+}
+
+.spinner-path {
+  stroke: white;
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+.loading-text {
+  font-size: 0.9rem;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+/* Make sure the cancel button is also disabled during upload */
+.cancel-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    grid-template-columns: 1fr;
+  }
+  .left-panel {
+    margin-bottom: 1rem;
+  }
+}
+
+/*# sourceMappingURL=Upload.css.map */
