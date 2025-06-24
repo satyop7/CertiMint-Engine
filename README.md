@@ -1,3 +1,7 @@
+# CertiMint-Engine
+Our video demo : 
+
+
 # Assignment Validation System
 
 An intelligent system for validating academic assignments, detecting plagiarism, AI-generated content, and verifying subject relevance.
@@ -18,7 +22,7 @@ The system operates in two distinct phases:
 1. **Data Collection Phase** (internet access enabled): Web scraping for reference content
 2. **Processing Phase** (network isolated/sandbox): OCR extraction, plagiarism checking, and content validation
 
-![Workflow Diagram](workflow.png)
+!
 
 ## Enhanced Plagiarism Detection
 
@@ -42,7 +46,7 @@ The system includes advanced AI-generated content detection featuring:
 The recommended way to check assignments is to use our consolidated workflow script:
 
 ```bash
-./enhanced_workflow.sh --file "data/assignment.pdf" --subject "Machine Learning"
+./workflow.sh -
 ```
 
 This script provides:
@@ -67,25 +71,6 @@ Options:
   --verbose, -v         Show detailed logging information
 ```
 
-### Alternative Tools
-
-For quick checks of PDF files for AI-generated content patterns, you can also use the `check_ai_content.sh` script:
-
-```bash
-./check_ai_content.sh --file "data/sample.pdf" --subject "Computer Science"
-```
-
-This provides a streamlined report focused on AI-generation patterns and plagiarism detection:
-
-```
-Options:
-  --file, -f FILE       PDF file to check for AI-generated content
-  --subject, -s SUBJECT Subject of the assignment (default: 'Artificial Intelligence')
-  --model, -m PATH      Path to the Phi-2 model file
-  --docker, -d          Use Docker for isolation (default: false)
-  --skip-scrape         Skip Wikipedia scraping and use existing references
-  --verbose, -v         Show detailed logging information
-```
 
 ## Installation
 
@@ -116,7 +101,7 @@ There are two ways to run the workflow:
 chmod +x run_workflow.sh
 
 # Run with default parameters (will use data/sample.pdf)
-./run_workflow.sh
+./workflow.sh
 
 # Run with custom parameters
 ./run_workflow.sh --subject "Mathematics" --file data/sample1.pdf --id MATH12345 --max-results 10 --timeout 300
@@ -226,23 +211,62 @@ Results are saved as JSON files with the following structure:
 
 ```json
 {
-  "subject": "Computer Science",
-  "assignment_id": "ASG12345",
-  "ocr_text_preview": "This is a preview of the extracted text...",
-  "ocr_text_length": 5000,
+  "subject": "history",
+  "assignment_id": "Vicky_202506241137",
+  "timestamp": "2025-06-24T11:37:27.432288",
+  "sandbox_mode": true,
+  "status": "FAILED",
+  "ocr_text_preview": "Assignment on Artificial Intelligence Author: Sambhranta Ghosh Artificial Intelligence (Al) is a rapidly advancing field that involves the simulation of human intelligence in machines. Al systems are ...",
+  "ocr_text_length": 1312,
   "plagiarism_check": {
-    "status": "checked",
-    "plagiarism_percentage": 18.5,
-    "similar_sources": [...]
+    "plagiarism_detected": true,
+    "plagiarism_percentage": 66.35512081582458,
+    "ai_patterns_detected": false,
+    "ai_confidence": 12.482437721561968,
+    "ai_patterns": {
+      "explicit_patterns": [],
+      "feature_scores": {
+        "paragraph_consistency": 15.926493108728945,
+        "sentence_variety": 63.52419512002124,
+        "lexical_diversity": 69.18604651162791,
+        "repetitive_patterns": 0,
+        "structural_patterns": 0
+      }
+    },
+    "semantic_similarity": 0,
+    "statistical_similarity": 62.80425489231134,
+    "ngram_similarity": 0,
+    "emoji_detected": false,
+    "emoji_count": 0,
+    "emoji_list": [],
+    "top_features_score": 66.35512081582458,
+    "subject_mismatch": true
   },
   "content_validation": {
-    "status": "valid",
-    "relevance_score": 87,
-    "comments": "The content is mostly relevant to the subject..."
+    "status": "FAILED",
+    "relevance_score": 10,
+    "comments": "Document contains 'artificial intelligence' which is unrelated to history"
   },
-  "timestamp": "2024-10-15T14:30:22.123456",
-  "status": "PASSED",
-  "sandbox_mode": true
+  "ai_detection": {
+    "ai_patterns_detected": false,
+    "ai_confidence": 12.482437721561968,
+    "patterns": {
+      "explicit_patterns": [],
+      "feature_scores": {
+        "paragraph_consistency": 15.926493108728945,
+        "sentence_variety": 63.52419512002124,
+        "lexical_diversity": 69.18604651162791,
+        "repetitive_patterns": 0,
+        "structural_patterns": 0
+      }
+    }
+  },
+  "failure_reason": "Subject-content mismatch: Paper claims to be about 'history' but contains content about 'unknown' - clear indication of AI-generated content",
+  "all_failure_reasons": [
+    "Subject-content mismatch: Paper claims to be about 'history' but contains content about 'unknown' - clear indication of AI-generated content",
+    "High plagiarism detected (66.35512081582458%)"
+  ],
+  "username": "Vicky"
 }
 ```
 
@@ -261,25 +285,10 @@ python wikipedia_scraper.py --query "Artificial Intelligence" --no-headless
 python wikipedia_scraper.py --query "Computer Science" --output data/my_results.json
 ```
 
-You can also run multiple searches using the batch script:
-
-```bash
-python batch_wiki_search.py
-```
-
-For a simpler example focused on divorce-related searches:
-
-```bash
-python divorce_wiki_search.py
-```
-
 The Wikipedia scraper will:
 1. Search for your query on Wikipedia
 2. Process either direct article matches or search results
 3. Extract article content, introductions, and infobox data
 4. Save comprehensive results to a JSON file
 
-## License
 
-Copyright (c) 2024
-Ensuring newenv is gitignored
