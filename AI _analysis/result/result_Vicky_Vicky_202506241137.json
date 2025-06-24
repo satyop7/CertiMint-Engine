@@ -1,0 +1,58 @@
+{
+  "subject": "history",
+  "assignment_id": "Vicky_202506241137",
+  "timestamp": "2025-06-24T11:37:27.432288",
+  "sandbox_mode": true,
+  "status": "FAILED",
+  "ocr_text_preview": "Assignment on Artificial Intelligence Author: Sambhranta Ghosh Artificial Intelligence (Al) is a rapidly advancing field that involves the simulation of human intelligence in machines. Al systems are ...",
+  "ocr_text_length": 1312,
+  "plagiarism_check": {
+    "plagiarism_detected": true,
+    "plagiarism_percentage": 66.35512081582458,
+    "ai_patterns_detected": false,
+    "ai_confidence": 12.482437721561968,
+    "ai_patterns": {
+      "explicit_patterns": [],
+      "feature_scores": {
+        "paragraph_consistency": 15.926493108728945,
+        "sentence_variety": 63.52419512002124,
+        "lexical_diversity": 69.18604651162791,
+        "repetitive_patterns": 0,
+        "structural_patterns": 0
+      }
+    },
+    "semantic_similarity": 0,
+    "statistical_similarity": 62.80425489231134,
+    "ngram_similarity": 0,
+    "emoji_detected": false,
+    "emoji_count": 0,
+    "emoji_list": [],
+    "top_features_score": 66.35512081582458,
+    "subject_mismatch": true
+  },
+  "content_validation": {
+    "status": "FAILED",
+    "relevance_score": 10,
+    "comments": "Document contains 'artificial intelligence' which is unrelated to history"
+  },
+  "ai_detection": {
+    "ai_patterns_detected": false,
+    "ai_confidence": 12.482437721561968,
+    "patterns": {
+      "explicit_patterns": [],
+      "feature_scores": {
+        "paragraph_consistency": 15.926493108728945,
+        "sentence_variety": 63.52419512002124,
+        "lexical_diversity": 69.18604651162791,
+        "repetitive_patterns": 0,
+        "structural_patterns": 0
+      }
+    }
+  },
+  "failure_reason": "Subject-content mismatch: Paper claims to be about 'history' but contains content about 'unknown' - clear indication of AI-generated content",
+  "all_failure_reasons": [
+    "Subject-content mismatch: Paper claims to be about 'history' but contains content about 'unknown' - clear indication of AI-generated content",
+    "High plagiarism detected (66.35512081582458%)"
+  ],
+  "username": "Vicky"
+}
