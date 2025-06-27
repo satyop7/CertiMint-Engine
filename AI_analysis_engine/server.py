@@ -13,7 +13,7 @@ import urllib3  # Add this for disabling warnings
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Configure ngrok
-ngrok.set_auth_token("2sHa3Dcs1starAG1B1If9ZejoO2_6dtmkjPN38SPaHYx9vJqv")  
+ngrok.set_auth_token("ngrok api key here")  # Replace with your actual ngrok auth token
 
 app = FastAPI()
 

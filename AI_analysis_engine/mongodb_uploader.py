@@ -10,7 +10,7 @@ def upload_to_mongodb(result_data):
         from pymongo import MongoClient
         
         # MongoDB connection string
-        connection_string = "mongodb+srv://sambhranta1123:SbGgIK3dZBn9uc2r@cluster0.jjcc5or.mongodb.net/"
+        connection_string = "your connection string here"
         
         client = MongoClient(connection_string)
         db = client['certimint']
