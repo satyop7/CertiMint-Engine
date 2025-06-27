@@ -158,7 +158,7 @@ export default function Home() {
       <footer className="footer">
         <div className="footer-content">
           <div className="footer-left">
-            <p>&copy; 2024 CertiFolio. Crafted with passion.</p>
+            <p>&copy; 2025 certimint. Crafted with passion.</p>
           </div>
           <div className="footer-right">
             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-link">
