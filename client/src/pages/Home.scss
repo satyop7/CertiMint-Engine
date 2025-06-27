@@ -475,13 +475,46 @@ $primary-color: #FBE9D9;
 .display-area {
   width: 100%;
   max-width: 800px;
-  height: 400px;
+  // height: 400px;
   @include glassmorphism;
   @include gradient-border;
-  margin-bottom: 20px;
+  margin: 2rem auto;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  .hero-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: $border-radius;
+    
+    // Optional: Set a fixed height if needed
+    // height: 450px;
+    // object-fit: cover;
+  }
+}
+
+@media (max-width: 768px) {
+  .display-area {
+    margin: 1.5rem auto;
+    
+    .hero-video {
+      height: 250px;
+      object-fit: cover;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .display-area {
+    margin: 1rem auto;
+    
+    .hero-video {
+      height: 200px;
+    }
+  }
 }
 
 /* Bottom Cards */

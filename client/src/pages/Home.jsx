@@ -9,6 +9,7 @@ import './Home.scss';
 import { MdOutlineArrowOutward } from "react-icons/md";
 import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
 import { useEffect, useState } from 'react';
+import __certimint__ from '../../video/certimint.mp4';
 
 
 export default function Home() {
@@ -125,6 +126,16 @@ export default function Home() {
         {/* Main Display Area */}
         <div className="display-area">
           {/* This will be filled later */}
+          <video 
+            className="hero-video"
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+          >
+            <source src={__certimint__} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
 
         {/* Bottom Cards */}
