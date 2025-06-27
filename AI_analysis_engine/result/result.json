@@ -1,0 +1,57 @@
+{
+  "subject": "Artificial Inteligence",
+  "assignment_id": "2",
+  "username": "Vicky",
+  "timestamp": "2025-06-27T06:56:19.619759",
+  "status": "PASSED",
+  "sandbox_mode": true,
+  "offline_processing": true,
+  "model_optimization": {
+    "transformer_layers_used": "1-16 (50% reduction)",
+    "layer_allocation": "1-8: text understanding, 9-16: classification",
+    "performance_improvement": "2.5x faster, 48% less memory",
+    "accuracy_retention": "97% (minimal loss for classification tasks)"
+  },
+  "ocr_text_length": 827,
+  "ocr_text_preview": "--- Page 1 ---\nArtificial Intelligence: A Rising Star Artificial Intelligence is a very good field with many exciting opportunities. To learn Artificial Intelligence, we need to understand statistical...",
+  "plagiarism_check": {
+    "plagiarism_detected": false,
+    "plagiarism_percentage": 31.6240157480315,
+    "algorithmic_score": 69.93602362204724,
+    "groq_llm_score": 39,
+    "phi_llm_score": 31.6240157480315,
+    "ai_patterns_detected": false,
+    "ai_confidence": 31.6240157480315,
+    "ai_patterns": {
+      "explicit_patterns": [],
+      "feature_scores": {
+        "paragraph_consistency": 30.0,
+        "sentence_variety": 64.87204724409449,
+        "lexical_diversity": 75.0,
+        "repetitive_patterns": 0.0,
+        "structural_patterns": 0.0
+      }
+    },
+    "semantic_similarity": 0.0,
+    "statistical_similarity": 5.0,
+    "ngram_similarity": 0.0,
+    "top_features_score": 75.0
+  },
+  "content_validation": {
+    "status": "PASSED",
+    "relevance_score": 50.8,
+    "keyword_score": 6.0,
+    "phi_llm_score": 70.0,
+    "keywords_used": [
+      "keyword1",
+      "keyword2",
+      "keyword3",
+      "keyword4",
+      "keyword5",
+      "keyword6",
+      "keyword7",
+      "keyword8"
+    ]
+  },
+  "failure_reasons": null
+}

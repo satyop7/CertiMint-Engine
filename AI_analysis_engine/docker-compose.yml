@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  assignment-validator:
+    build: .
+    container_name: assignment-validator-sandbox
+    network_mode: none
+    volumes:
+      - ./data:/app/data
+      - ./result:/app/result
+      - ./models:/app/models
+    environment:
+      - TRANSFORMERS_OFFLINE=1
+      - HF_HUB_OFFLINE=1
+      - LANGCHAIN_TRACING=false
+      - SANDBOX_MODE=true
+    restart: "no"
+    command: python3 complete_workflow.py

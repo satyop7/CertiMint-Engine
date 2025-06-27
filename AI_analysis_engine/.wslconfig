@@ -1,0 +1,10 @@
+[wsl2]
+memory=14GB
+processors=6
+swap=4GB
+localhostForwarding=true
+
+# GPU passthrough for CUDA
+[experimental]
+autoMemoryReclaim=gradual
+sparseVhd=true
