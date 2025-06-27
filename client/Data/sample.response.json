@@ -1,0 +1,64 @@
+{
+    "_id": {
+        "$oid": "685c3b09d389b4506dc14d93"
+    },
+    "subject": "Biology",
+    "assignment_id": "Vicky_202506251807",
+    "timestamp": "2025-06-25T18:07:47.900209",
+    "sandbox_mode": true,
+    "status": "FAILED",
+    "ocr_text_preview": "Introduction to Quantum Mechanics. 1. What is Quantum Mechanics?. Quantum mechanics is a fundamental theory in physics that describes nature at the smallest scales of energy levels of atoms and subato...",
+    "ocr_text_length": 947,
+    "plagiarism_check": {
+        "plagiarism_detected": true,
+        "plagiarism_percentage": 46.82490723087629,
+        "ai_patterns_detected": true,
+        "ai_confidence": 46.65919530797263,
+        "ai_patterns": {
+            "explicit_patterns": [],
+            "feature_scores": {
+                "paragraph_consistency": 49.09670563230606,
+                "sentence_variety": 67.49968929344091,
+                "lexical_diversity": 70.53571428571429,
+                "repetitive_patterns": 0,
+                "structural_patterns": 0
+            }
+        },
+        "semantic_similarity": 0,
+        "statistical_similarity": 49.70612380542637,
+        "ngram_similarity": 0,
+        "emoji_detected": false,
+        "emoji_count": 0,
+        "emoji_list": [],
+        "top_features_score": 69.0177017895776,
+        "subject_mismatch": true,
+        "llm_similarity": 46.65919530797263
+    },
+    "content_validation": {
+        "status": "PASSED",
+        "relevance_score": 50,
+        "comments": "No defined keyword rules for subject: Biology"
+    },
+    "ai_detection": {
+        "ai_patterns_detected": true,
+        "ai_confidence": 46.65919530797263,
+        "patterns": {
+            "explicit_patterns": [],
+            "feature_scores": {
+                "paragraph_consistency": 49.09670563230606,
+                "sentence_variety": 67.49968929344091,
+                "lexical_diversity": 70.53571428571429,
+                "repetitive_patterns": 0,
+                "structural_patterns": 0
+            }
+        }
+    },
+    "failure_reason": "Subject-content mismatch: Paper claims to be about 'Biology' but contains content about 'unknown' - clear indication of AI-generated content",
+    "all_failure_reasons": [
+        "Subject-content mismatch: Paper claims to be about 'Biology' but contains content about 'unknown' - clear indication of AI-generated content",
+        "High plagiarism detected (46.82490723087629%)",
+        "AI-generated content patterns detected - assignment fails academic integrity check"
+    ],
+    "username": "Vicky",
+    "upload_timestamp": "2025-06-25T18:08:09.842716"
+}

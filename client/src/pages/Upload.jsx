@@ -1,14 +1,94 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import './Upload.css';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { BiLogOut } from "react-icons/bi";
+import { BsFire } from "react-icons/bs";
+import { FaLock } from "react-icons/fa";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { connectWallet, mintNFTContract, isWalletConnected, getConnectedAccount } from '../services/walletService';
+// import { connectWallet } from '../services/walletService';
+import { IoWallet } from "react-icons/io5";
+import { AiFillSafetyCertificate } from "react-icons/ai";
+
+
+
 
 export default function Upload() {
+  const [walletConnected, setWalletConnected] = useState(false);
+  const [walletAddress, setWalletAddress] = useState('');
+  const [isMinting, setIsMinting] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
+  const [isMinted, setIsMinted] = useState(false);
+
+  useEffect(() => {
+    const checkWalletConnection = async () => {
+      try {
+        const isConnected = await isWalletConnected();
+        if (isConnected) {
+          const account = await getConnectedAccount();
+          setWalletConnected(true);
+          setWalletAddress(account);
+        }
+      } catch (error) {
+        console.error("Error checking wallet connection:", error);
+      }
+    };
+
+    checkWalletConnection();
+
+    // Listen for account changes
+    if (typeof window.ethereum !== 'undefined') {
+      window.ethereum.on('accountsChanged', (accounts) => {
+        if (accounts.length === 0) {
+          setWalletConnected(false);
+          setWalletAddress('');
+        } else {
+          setWalletConnected(true);
+          setWalletAddress(accounts[0]);
+        }
+      });
+
+      // Listen for network changes
+      window.ethereum.on('chainChanged', () => {
+        window.location.reload();
+      });
+    }
+
+    // Cleanup listeners
+    return () => {
+      if (typeof window.ethereum !== 'undefined') {
+        window.ethereum.removeAllListeners('accountsChanged');
+        window.ethereum.removeAllListeners('chainChanged');
+      }
+    };
+  }, []);
+
+  // Wallet connection function
+  const handleConnectWallet = async () => {
+    setIsConnecting(true);
+    try {
+      const address = await connectWallet();
+      setWalletConnected(true);
+      setWalletAddress(address);
+      toast.success('Wallet connected successfully!');
+    } catch (error) {
+      console.error("Connection error:", error);
+      toast.error(error.message);
+    } finally {
+      setIsConnecting(false);
+    }
+  };
+
+ 
+
+  // Add notification state
+  const [notificationCount, setNotificationCount] = useState(0);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notifications, setNotifications] = useState([]);
   // Add a new state for tracking upload processing
   const [isUploading, setIsUploading] = useState(false);
   
@@ -60,11 +140,262 @@ export default function Upload() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+   const handleMintCertificate = async () => {
+    // Check if all requirements are met
+    if (calculateProgress() !== 100) {
+      toast.error('Complete all assignments before minting!');
+      return;
+    }
+
+    if (!walletConnected) {
+      toast.error('Please connect your wallet first!');
+      return;
+    }
+
+    setIsMinting(true);
+
+    try {
+      const defaultSubjects = [
+      'Blockchain Development',
+      'Smart Contract Programming',
+      'Cryptocurrency Trading',
+      'DeFi Protocols',
+      'NFT Creation',
+      'Web3 Development',
+      'Ethereum Development',
+      'Solidity Programming',
+      'Decentralized Applications',
+      'Crypto Security'
+    ];
+
+    const issuers = [
+      'Udemy',
+      'Coursera',
+      'edX',
+      'Khan Academy',
+      'MIT OpenCourseWare',
+      'Stanford Online',
+      'Harvard Extension',
+      'Berkeley Online',
+      'Yale Open Courses',
+      'Princeton Online',
+      'Columbia Digital',
+      'NYU Online'
+    ];
+    const signatures = [
+      'Dr. Sarah Johnson',
+      'Prof. Michael Chen',
+      'Dr. Emily Davis',
+      'Prof. David Wilson',
+      'Dr. Lisa Anderson',
+      'Prof. Robert Martinez',
+      'Dr. Jennifer Lee',
+      'Prof. Christopher Brown',
+      'Dr. Amanda Taylor',
+      'Prof. Kevin Singh',
+      'Dr. Rachel Thompson'
+    ];
+
+    const randomCourses = [
+      'Complete Web Development Bootcamp',
+      'Advanced JavaScript Masterclass',
+      'Full Stack Development Course',
+      'React & Node.js Certification',
+      'Python Programming Fundamentals',
+      'Data Science & Machine Learning',
+      'Cybersecurity Essentials',
+      'Digital Marketing Strategy',
+      'UI/UX Design Principles',
+      'Cloud Computing with AWS',
+      'Mobile App Development',
+      'Database Design & Management',
+      'DevOps Engineering Track',
+      'Artificial Intelligence Course',
+      'Game Development with Unity',
+      'E-commerce Development',
+      'Network Security Fundamentals',
+      'Business Analytics Course',
+      'Project Management Certification',
+      'Software Testing & QA'
+    ];
+        const getRandomItem = (array) => array[Math.floor(Math.random() * array.length)];
+
+      // Hardcoded certificate data
+    const subjectName = subject.trim() || getRandomItem(defaultSubjects);
+    const issuedBy = getRandomItem(issuers);
+    const signature = getRandomItem(signatures);
+
+      const certificateSVG = `<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#fdfaf6" stroke="#333" stroke-width="8"/>
+
+  <!-- Inner Border -->
+  <rect x="20" y="20" width="760" height="560" fill="none" stroke="#999" stroke-width="2"/>
+
+  <!-- Title -->
+  <text x="400" y="100" font-size="36" text-anchor="middle"
+        font-family="Georgia, serif" fill="#222">
+    Certificate of Completion
+  </text>
+
+  <!-- Subtitle -->
+  <text x="400" y="150" font-size="20" text-anchor="middle"
+        font-family="Arial, sans-serif" fill="#666">
+    This certifies that
+  </text>
+
+  <!-- Student Name -->
+  <text x="400" y="210" font-size="30" text-anchor="middle"
+        font-family="Georgia, serif" fill="#000" font-weight="bold">
+    ${user?.name || 'Student'}
+  </text>
+
+  <!-- Course Statement -->
+  <text x="400" y="270" font-size="18" text-anchor="middle"
+        font-family="Arial, sans-serif" fill="#444">
+    has successfully completed the course
+  </text>
+
+  <!-- Course Name -->
+  <text x="400" y="310" font-size="24" text-anchor="middle"
+        font-family="Georgia, serif" fill="#000">
+    ${subjectName.trim()}
+  </text>
+
+  <!-- Provider Name -->
+  <text x="400" y="370" font-size="18" text-anchor="middle"
+        font-family="Arial, sans-serif" fill="#444">
+    Issued by ${issuedBy}
+  </text>
+
+  <!-- Date Field -->
+  <text x="120" y="500" font-size="16" font-family="Arial, sans-serif" fill="#333">
+    Date: ${new Date().toLocaleDateString() || 'MM/DD/YYYY'}
+  </text>
+
+  <text x="670" y="470" font-size="14" text-anchor="middle"
+        font-family="Arial, sans-serif" fill="#333">
+    ${signature}
+  </text>
+  <!-- Signature Line -->
+  <line x1="600" y1="480" x2="740" y2="480" stroke="#333" stroke-width="1"/>
+  <text x="670" y="500" font-size="14" text-anchor="middle"
+        font-family="Arial, sans-serif" fill="#333">
+    Signature
+  </text>
+</svg>`; // Hardcoded base64 image (~2700 chars)
+      const base64Image = `data:image/svg+xml;base64,${btoa(certificateSVG)}`;      
+      const course = getRandomItem(randomCourses); // ~200 chars
+
+      
+      const result = await mintNFTContract(base64Image, subjectName, course);
+
+      if (result.success) {
+        setIsMinted(true);
+        toast.success(`🎉 Certificate minted successfully! Transaction: ${result.transactionHash.slice(0, 10)}...`);
+        console.log('Certificate minted:', result);
+      }
+    } catch (error) {
+      
+      console.error('Minting failed:', error);
+    } finally {
+      setIsMinting(false);
+    }
+  };
+
+  useEffect(() => {
+    const saved = localStorage.getItem('notifications');
+    if (saved) {
+      setNotifications(JSON.parse(saved));
+      setNotificationCount(JSON.parse(saved).length);
+    }
+  }, []);
+
   // Save state to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('uploadSuccessful', JSON.stringify(uploadSuccessful));
   }, [uploadSuccessful]);
   
+   // Poll every 5 seconds
+  useEffect(() => {
+    if (!user?.id) return;
+
+    const interval = setInterval(async () => {
+      try {
+        const res = await axios.get(`http://localhost:3900/reviewed-assignments/${user.id}`);
+        const reviewed = res.data;
+
+        if (reviewed.length > 0) {
+          setAssignments(prev => {
+            // Create a new array with updated assignments
+            const updatedAssignments = prev.map(assignment => {
+              const match = reviewed.find(r => r.assignmentId == assignment.id);
+              if (match && assignment.status !== 'Submitted') {
+                // Show toast only if status changed
+                toast.success(`✅ Assignment ${assignment.id} has been reviewed!`);
+                return { ...assignment, status: 'Submitted' };
+              }
+              return assignment;
+            });
+            
+            // Save the updated assignments to localStorage
+            localStorage.setItem('assignments', JSON.stringify(updatedAssignments));
+            
+            // Return the updated assignments for state update
+            return updatedAssignments;
+          });
+
+          // Optionally clear the reviewed data from backend
+          // axios.delete(`http://localhost:3900/reviewed-assignments/${user.id}`);
+        }
+      } catch (err) {
+        console.error("Error fetching reviewed assignments:", err);
+      }
+    }, 5000); // Poll every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [user]);
+
+  useEffect(() => {
+  if (!user?.id) return;
+
+  const fetchNotifications = async () => {
+    try {
+      const res = await axios.get(`http://localhost:3900/notifications/${user.id}`);
+      const newNotifications = res.data;
+
+      if (newNotifications.length > 0) {
+        // Use functional updates to avoid creating a dependency on notifications
+        setNotifications(prevNotifications => {
+          // Filter out already seen ones
+          const unseen = newNotifications.filter(n =>
+            !prevNotifications.some(existing => existing.assignmentId === n.assignmentId)
+          );
+
+          if (unseen.length > 0) {
+            const updatedNotifications = [...unseen, ...prevNotifications];
+            localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+            
+            // Update notification count
+            setNotificationCount(unseen.length);
+            
+            return updatedNotifications;
+          }
+          
+          return prevNotifications;
+        });
+      }
+    } catch (err) {
+      console.error("Error fetching notifications:", err);
+    }
+  };
+
+  fetchNotifications(); // Initial fetch
+  const interval = setInterval(fetchNotifications, 5000);
+
+  return () => clearInterval(interval);
+}, [user]); // Remove notifications from dependencies
+
   useEffect(() => {
     localStorage.setItem('cooldownTime', cooldownTime.toString());
     
@@ -146,6 +477,13 @@ export default function Upload() {
           });
         }
       });
+
+      // Show toast using server message if available
+    if (res.data && res.data.success) {
+      toast.success(res.data.message || 'Assignment uploaded successfully!');
+    } else {
+      toast.success('Assignment uploaded successfully!');
+    }
       
       // Update the assignment status to "Pending" instead of "Submitted"
       const updatedAssignments = assignments.map(assignment => {
@@ -162,7 +500,7 @@ export default function Upload() {
       setCooldownTime(10);
       setIsButtonLocked(true);
       
-      toast.success('Assignment uploaded successfully!');
+      // toast.success('Assignment uploaded successfully!');
       setFile(null);
       setSelectedAssignment('');
       
@@ -243,85 +581,223 @@ export default function Upload() {
     setUploadProgress(newProgress);
   };
 
+  // Function to handle notification click
+  const handleNotificationClick = () => {
+  setShowNotification(!showNotification);
+  setNotificationCount(0);
+
+  // Optional: Clear local storage count only when viewed
+  const updatedNotifications = notifications.map(n => ({ ...n, read: true }));
+  localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+};
+
+  useEffect(() => {
+  console.log('Current assignments:', assignments);
+  console.log('Progress calculation:', calculateProgress());
+  
+  // Check what's in localStorage
+  const savedAssignments = localStorage.getItem('assignments');
+  if (savedAssignments) {
+    console.log('Assignments in localStorage:', JSON.parse(savedAssignments));
+  } else {
+    console.log('No assignments found in localStorage');
+  }
+}, [assignments]);
+
+  // Add this function inside your component
+  const calculateProgress = () => {
+  try {
+    // First check if we can get data from localStorage directly
+    const savedAssignments = localStorage.getItem('assignments');
+    let assignmentsToUse = assignments;
+    
+    if (savedAssignments) {
+      // Use the most recent data from localStorage if available
+      const parsedAssignments = JSON.parse(savedAssignments);
+      if (Array.isArray(parsedAssignments) && parsedAssignments.length > 0) {
+        assignmentsToUse = parsedAssignments;
+      }
+    }
+    
+    const totalAssignments = assignmentsToUse.length;
+    const submittedAssignments = assignmentsToUse.filter(
+      assignment => assignment.status === 'Submitted'
+    ).length;
+    
+    // Calculate percentage and round to nearest whole number
+    return totalAssignments > 0 
+      ? Math.round((submittedAssignments / totalAssignments) * 100) 
+      : 0;
+  } catch (error) {
+    console.error("Error calculating progress:", error);
+    return 0;
+  }
+};
+
+  
+
   // Rest of your component remains the same
   return (
     <div className="dashboard-container">
-      {/* The UI code remains the same */}
       <ToastContainer theme="dark" position="top-right" />
       
       <div className="header">
-        <div className="user-profile">
-          {user?.picture ? (
-            <img 
-              src={user.picture} 
-              alt="Profile" 
-              className="profile-image" 
-            />
-          ) : (
-            <div className="profile-placeholder">
-              {user?.name?.charAt(0) || 'S'}
-            </div>
-          )}
-          <h1>Hi, {user?.name || 'Student'}</h1>
+        <div className="user-section">
+          <div className="user-profile">
+            {user?.picture ? (
+              <img 
+                src={user.picture} 
+                alt="Profile" 
+                className="profile-image" 
+              />
+            ) : (
+              <div className="profile-placeholder">
+                {user?.name?.charAt(0) || 'S'}
+              </div>
+            )}
+            <h1>Hi, {user?.name || 'Student'}</h1>
+          </div>
+          
+          <div className="navigation-path">
+            <Link to="/" className="path-link">Home</Link>
+            <span className="path-separator">/</span>
+            <Link to="/nfts" className="path-link">NFT Certificates</Link>
+            <span className="path-separator">/</span>
+            <Link to="/dashboard" className="path-link">Dashboard</Link>
+            <span className="path-separator">/</span>
+            <Link className='assignment-progress'>Progress <span className='style-progress-value'>{calculateProgress()}%</span></Link>
+          </div>
+          
         </div>
+        
         <div className="header-right">
-          <button className="back-btn"><IoMdArrowRoundBack style={{verticalAlign:'middle'}} size={20}/> Back</button>
+          {/* Notification Bell */}
+          <div className="notification-container">
+            <button className="notification-btn" onClick={handleNotificationClick}>
+              <BsFire style={{verticalAlign:'middle'}} size={22}/>
+              <span className="notification-badge">{notificationCount}</span>
+            </button>
+
+            {showNotification && (
+              <div className="notification-dropdown">
+                {notifications.length > 0 ? (
+                  <div className="notification-list">
+                    {notifications.map((notif, index) => (
+                      <div key={index} className="notification-item">
+                        <strong>Assignment {notif.assignmentId}</strong><br />
+                        {notif.feedback || "Your assignment has been reviewed."}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="notification-empty">No notifications yet.</div>
+                )}
+              </div>
+            )}
+          </div>
+          
+          <button className="back-btn" onClick={() => navigate(-1)}>
+            <IoMdArrowRoundBack style={{verticalAlign:'middle'}} size={20}/> Back
+          </button>
           <button className="logout-btn" onClick={handleLogout}>
             <BiLogOut style={{verticalAlign:'middle',marginRight:'7px'}} size={20} />
             Logout
-            </button>
+          </button>
         </div>
       </div>
       
       <div className="dashboard-content">
         {/* Left panel remains the same */}
         <div className="left-panel">
-          <div className="assignment-counter">
-            Total Assignments - {assignments.length}
-          </div>
-          
-          <div className="subject-input">
-            <label>Subject Name</label>
-            <input 
-              type="text" 
-              placeholder="Name Here" 
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
-            />
-          </div>
-          
-          <div className="assignment-selection">
-            <label>Select your assignment</label>
-            <select 
-              value={selectedAssignment} 
-              onChange={(e) => setSelectedAssignment(e.target.value)}
-            >
-              <option value="">Select Assignment</option>
-              {getPendingAssignments().map(assignment => (
-                <option key={assignment.id} value={assignment.id}>
-                  Assignment - {assignment.id}
-                </option>
-              ))}
-            </select>
-          </div>
-          
-          <div className="assignments-table">
-            <div className="table-header">
-              <div className="table-column">Assignments</div>
-              <div className="table-column">Status</div>
-            </div>
-            <div className="table-body">
-              {assignments.map(assignment => (
-                <div className="table-row" key={assignment.id}>
-                  <div className="table-column">Assignment - {assignment.id}</div>
-                  <div className={`table-column status status-${assignment.status.toLowerCase().replace(' ', '-')}`}>
-                    {assignment.status}
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="assignment-header">
+    <div className="assignment-counter">
+      Total Assignments - {assignments.length}
+    </div>
+    
+    {/* Single button that changes based on wallet connection status */}
+  {!walletConnected ? (
+    <button 
+      onClick={handleConnectWallet}
+      disabled={isConnecting}
+      className="connect-wallet-btn"
+    >
+      {isConnecting ? (
+  'Connecting...'
+) : (
+  <>
+    <IoWallet style={{ marginRight: '8px',verticalAlign:'middle' }} />
+    Connect Wallet
+  </>
+)}
+    </button>
+  ) : (
+    <button 
+      onClick={handleMintCertificate}
+      disabled={calculateProgress() < 100 || isMinting}
+      className={`mint-btn ${calculateProgress() < 100 ? 'locked' : 'unlocked'}`}
+    >
+      {calculateProgress() < 100 ? (
+        <>
+          <span className="lock-icon"><FaLock size={15}  style={{verticalAlign:'middle', marginRight:'8px', color:'#2CBB5D'}}/></span>
+          Mint ({calculateProgress()}%)
+        </>
+      ) : isMinting ? (
+        <>
+          <span className="loading-icon">⏳</span>
+          Minting...
+        </>
+      ) : (
+        <>
+          <span className="unlock-icon"><AiFillSafetyCertificate size={17} style={{verticalAlign:'middle',marginRight:'8px' , color:'#2CBB5D'}}/></span>
+          Mint Certificate
+        </>
+      )}
+    </button>
+  )}
+  </div>
+  
+  <div className="subject-input">
+    <label>Subject Name</label>
+    <input 
+      type="text" 
+      placeholder="Name Here" 
+      value={subject}
+      onChange={(e) => setSubject(e.target.value)}
+    />
+  </div>
+  
+  <div className="assignment-selection">
+    <label>Select your assignment</label>
+    <select 
+      value={selectedAssignment} 
+      onChange={(e) => setSelectedAssignment(e.target.value)}
+    >
+      <option value="">Select Assignment</option>
+      {getPendingAssignments().map(assignment => (
+        <option key={assignment.id} value={assignment.id}>
+          Assignment - {assignment.id}
+        </option>
+      ))}
+    </select>
+  </div>
+  
+  <div className="assignments-table">
+    <div className="table-header">
+      <div className="table-column">Assignments</div>
+      <div className="table-column">Status</div>
+    </div>
+    <div className="table-body">
+      {assignments.map(assignment => (
+        <div className="table-row" key={assignment.id}>
+          <div className="table-column">Assignment - {assignment.id}</div>
+          <div className={`table-column status status-${assignment.status.toLowerCase().replace(' ', '-')}`}>
+            {assignment.status}
           </div>
         </div>
+      ))}
+    </div>
+  </div>
+</div>
         
         <div className="right-panel">
           {/* Right panel with conditional rendering */}

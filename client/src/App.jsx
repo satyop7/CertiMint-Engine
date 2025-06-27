@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Upload from './pages/Upload';
 import ProtectedRoute from '../components/ProtectedRoute';
+import NFTDashboard from '../components/NFTDashboard';
+import Dashboard from './pages/Dashboard';
 
 export default function App() {
   return (
@@ -14,6 +16,20 @@ export default function App() {
           element={
             <ProtectedRoute>
               <Upload />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/nfts"
+          element={
+              <NFTDashboard />
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
             </ProtectedRoute>
           }
         />
