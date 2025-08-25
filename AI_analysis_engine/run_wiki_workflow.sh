@@ -18,7 +18,7 @@ TIMEOUT=60
 SKIP_SCRAPE=false
 MODEL_PATH="phi-2.Q4_K_M.gguf"  
 DOWNLOAD_MODEL=false 
-HF_TOKEN=""  # Set your Hugging Face token here or pass via --hf-token
+HF_TOKEN="your api key"  # Set your Hugging Face token here or pass via --hf-token
 USE_DOCKER=false  # Changed default to false (no Docker)
 
 
