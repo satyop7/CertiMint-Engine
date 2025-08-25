@@ -1,6 +1,11 @@
 # Assignment Validation System
 
 An intelligent system for validating academic assignments, detecting plagiarism, AI-generated content, and verifying subject relevance.
+DEMO :
+ 
+
+https://github.com/user-attachments/assets/9118c6e1-07c9-4d78-b6a2-9eeec751d131
+
 
 ## Overview
 
