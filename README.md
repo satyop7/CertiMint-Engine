@@ -473,6 +473,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Built with ❤️ by the CertiMint Team**
+**Built with ❤️ **
 
 *Securing academic integrity through blockchain technology and AI-powered validation.*
