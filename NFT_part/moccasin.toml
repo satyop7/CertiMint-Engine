@@ -1,0 +1,41 @@
+[project]
+src = "src"
+out = "out"
+dot_env = ".env"
+name = "moccasin_project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["snekmate"]
+
+[networks.pyevm]
+is_zksync = false
+
+[networks.anvil]
+url = "http://127.0.0.1:8545"
+prompt_live = false
+save_to_db = false
+chain_id = 31337
+default_account_name = "anvil1"
+
+[networks.sepolia]
+
+url = "$SEPOLIA_RPC_URL"
+chain_id = 11155111
+default_account_name = "account1"
+explorer_url = "https://eth-sepolia.blockscout.com/"
+explorer = "blockscout"
+save_to_db = true
+
+[networks.zksync-sepolia]
+url = "$ZKSYNC_SEPOLIA_RPC_URL"
+chain_id = 300
+default_account_name = "account1"
+is_zksync = true
+prompt_live = true
+save_to_db = true
+explorer_url = "https://explorer.sepolia.era.zksync.dev"
+explorer = "zksyncexplorer"
+
+# You can view all configuration options at https://cyfrin.github.io/moccasin/all_moccasin_toml_parameters.html
