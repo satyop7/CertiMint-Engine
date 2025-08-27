@@ -1,6 +1,6 @@
 import requests
 
-OMNIDIMENSION_API_TOKEN = "y1RPJmb0D2wRB9qPp-PtViV2DkCEyGeDuFlOpbxmPAY" # Replace with your token
+OMNIDIMENSION_API_TOKEN = "your key" # Replace with your token
 AGENT_ID = 2499 # Your CertiMint Voice Assistant's ID
 
 def dispatch_omnidimension_call(to_number, customer_name=None, account_id=None):

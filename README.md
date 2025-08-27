@@ -1,291 +1,478 @@
-# Assignment Validation System
+# CertiMint - Academic Certificate NFT Platform
 
-An intelligent system for validating academic assignments, detecting plagiarism, AI-generated content, and verifying subject relevance.
+**CertiMint** is a comprehensive blockchain-based platform that validates academic assignments using AI-powered analysis and mints verified certificates as NFTs. The platform combines advanced plagiarism detection, AI-generated content detection, and subject relevance validation with blockchain technology to create tamper-proof academic certificates.
 
-## DEMO :
- 
+## 🎥 Demo
 
 https://github.com/user-attachments/assets/9118c6e1-07c9-4d78-b6a2-9eeec751d131
 
+## 🌟 Overview
 
-## Overview
+CertiMint is a full-stack solution consisting of three main components:
 
-This system provides a complete workflow for validating academic assignments through the following processes:
-1. Reference collection via Wikipedia scraping for the specified subject
-2. OCR processing of assignment documents (PDF format)
-3. Advanced plagiarism detection using multiple techniques
-4. AI-generated content detection using pattern recognition
-5. Subject relevance validation using keyword analysis
-6. Comprehensive result reporting and MongoDB storage
+### 1. **AI Analysis Engine** 
+- Advanced plagiarism detection using multiple algorithms
+- AI-generated content detection with pattern recognition
+- Subject relevance validation using NLP and keyword analysis
+- Secure sandbox environment for isolated processing
+- OCR processing for PDF documents
 
-## System Architecture
+### 2. **Blockchain NFT System**
+- Smart contracts written in Vyper for zkSync Sepolia testnet
+- ERC-721 compliant NFT certificates
+- Immutable certificate storage on blockchain
+- SVG-based certificate generation with metadata
 
-The system operates in two distinct phases:
-1. **Data Collection Phase** (internet access enabled): Web scraping for reference content
-2. **Processing Phase** (network isolated/sandbox): OCR extraction, plagiarism checking, and content validation
+### 3. **Web Platform**
+- React.js frontend with Web3 integration
+- Express.js backend with MongoDB integration
+- Real-time assignment tracking and notifications
+- Wallet integration (MetaMask) for certificate minting
+- Certificate dashboard for viewing and managing NFTs
 
-![Workflow Diagram](workflow.png)
+## 🏗️ System Architecture
 
-## Enhanced Plagiarism Detection
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Frontend      │    │    Backend      │    │  AI Engine     │
+│   (React.js)    │◄──►│  (Express.js)   │◄──►│  (Python)      │
+│                 │    │   + MongoDB     │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│  Web3 Wallet    │    │   Cloudinary    │    │   Wikipedia     │
+│  (MetaMask)     │    │   (File Store)  │    │   Scraper       │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │
+         ▼
+┌─────────────────┐
+│  zkSync Smart  │
+│   Contract      │
+│   (Vyper)       │
+└─────────────────┘
+```
 
-The system includes advanced AI-generated content detection featuring:
+### Processing Flow:
+1. **Data Collection Phase**: Web scraping for reference content (Wikipedia)
+2. **Analysis Phase**: OCR extraction, plagiarism detection, AI content validation (Sandboxed)
+3. **Validation Phase**: Subject relevance checking and integrity scoring
+4. **Certification Phase**: NFT minting on zkSync blockchain with certificate metadata
 
+## 🔍 AI-Powered Validation Features
+
+### Advanced Plagiarism Detection
 - **Multi-layered detection**: Combines semantic similarity, LLM assessment, and pattern recognition
-- **AI Pattern Detection**: Identifies common patterns in AI-generated text such as:
+- **Enhanced algorithms**: Uses transformer models and n-gram analysis
+- **Source comparison**: Cross-references with Wikipedia and academic databases
+- **Strict thresholds**: Semantic similarity > 40% triggers failure
+
+### AI-Generated Content Detection
+- **Pattern Recognition**: Identifies common AI-generated text patterns:
   - Self-references ("As an AI language model...")
   - Formulaic structures (pros/cons, numbered points)
   - Awkward or repetitive phrasing
   - Balanced perspectives ("on one hand... on the other hand")
   - Uniform paragraph structure
-- **Strict thresholds**: 
-  - Semantic similarity > 40% triggers failure (down from 50%)
-  - LLM similarity > 35% triggers failure (down from 40%)
-  - Any emoji detection triggers immediate failure
-  - Any AI pattern detection triggers immediate failure
+- **Emoji Detection**: Any emoji triggers immediate failure
+- **Confidence Scoring**: AI confidence > 35% triggers failure
+- **LLM Integration**: Uses Phi-2 model for advanced analysis
 
-### Using the Enhanced Workflow
+### Subject Relevance Validation
+- **Keyword Analysis**: Deep analysis of subject-specific terminology
+- **Content Matching**: Validates alignment between declared and actual content
+- **Mismatch Detection**: Identifies subject-content discrepancies
+- **Confidence Scoring**: Relevance score must exceed 35% threshold
 
-The recommended way to check assignments is to use our consolidated workflow script:
+## 🔐 Blockchain & NFT Features
 
+### Smart Contract (Vyper)
+- **ERC-721 Compliant**: Standard NFT implementation
+- **zkSync Sepolia**: Deployed on Layer 2 for lower gas costs
+- **Contract Address**: `0x5497D3d6aE886f709a7427B1f7f8DE0A2c715bCC`
+- **Metadata Storage**: On-chain storage of certificate data
+- **Access Control**: Owner-based minting permissions
+
+### Certificate NFTs
+- **SVG Generation**: Dynamic certificate creation with personalized data
+- **Immutable Records**: Blockchain-secured certificate validation
+- **Metadata Structure**:
+  ```json
+  {
+    "Subject": "Computer Science",
+    "Course": "Blockchain Development", 
+    "image": "data:image/svg+xml;base64,..."
+  }
+  ```
+- **Verification**: Public verification through blockchain explorer
+
+## 🖥️ Frontend Features
+
+### React.js Application
+- **Modern UI/UX**: Responsive design with real-time updates
+- **Web3 Integration**: MetaMask wallet connection
+- **Assignment Tracking**: Progress monitoring and notifications
+- **Certificate Dashboard**: View, filter, and manage NFT certificates
+
+### Key Components
+- **Upload Interface**: Assignment submission with validation
+- **NFT Dashboard**: Certificate viewing and management
+- **Wallet Integration**: Seamless Web3 connectivity
+- **Progress Tracking**: Real-time validation status
+
+## 🛠️ Technology Stack
+
+### Frontend
+- **React.js** - Modern UI framework
+- **Viem** - TypeScript Web3 library
+- **React Router** - Client-side routing
+- **Socket.IO** - Real-time communication
+- **SASS** - Advanced CSS preprocessing
+
+### Backend
+- **Node.js & Express.js** - RESTful API server
+- **MongoDB** - Assignment and user data storage
+- **Cloudinary** - File upload and storage
+- **Socket.IO** - WebSocket communication
+- **CORS** - Cross-origin resource sharing
+
+### AI Engine
+- **Python** - Core processing language
+- **Transformers** - HuggingFace model integration
+- **PaddleOCR** - Optical character recognition
+- **NLTK/spaCy** - Natural language processing
+- **Docker** - Containerized sandbox environment
+
+### Blockchain
+- **Vyper** - Smart contract language
+- **zkSync Sepolia** - Layer 2 testnet
+- **Moccasin** - Development framework
+- **Web3 Libraries** - Blockchain interaction
+
+## 🚀 Installation & Setup
+
+### Prerequisites
+- **Node.js** (v16 or higher)
+- **Python** (3.8 or higher)
+- **Git**
+- **MetaMask** browser extension
+- **MongoDB** (local or cloud)
+
+### 1. Clone Repository
 ```bash
-./enhanced_workflow.sh --file "data/assignment.pdf" --subject "Machine Learning"
+git clone https://github.com/Rickyy-Sam07/CertiMint-Engine.git
+cd CertiMint-Engine
 ```
 
-This script provides:
-- Complete reference collection from Wikipedia
-- Enhanced AI-generated content detection
-- Multiple plagiarism detection mechanisms
-- Network isolation for security
-- Comprehensive and colorized results summary
-
-Full options:
-```
-Options:
-  --file, -f FILE       PDF file to check (required)
-  --subject, -s SUBJECT Subject of the assignment (default: 'Artificial Intelligence')
-  --id ID               Assignment ID (generated from filename if not provided)
-  --max-results N       Maximum number of references to collect (default: 10)
-  --timeout N           Timeout in seconds for web scraping (default: 60)
-  --model, -m PATH      Path to the Phi-2 model file (default: phi-2.Q4_K_M.gguf)
-  --download-model      Download the model if it doesn't exist (default: false)
-  --use-docker, -d      Use Docker for isolation (default: false)
-  --skip-scrape         Skip Wikipedia scraping and use existing references.json
-  --verbose, -v         Show detailed logging information
-```
-
-### Alternative Tools
-
-For quick checks of PDF files for AI-generated content patterns, you can also use the `check_ai_content.sh` script:
-
+### 2. Backend Setup
 ```bash
-./check_ai_content.sh --file "data/sample.pdf" --subject "Computer Science"
+cd server
+npm install
+
+# Create .env file with:
+# MONGODB_URI=your_mongodb_connection_string
+# CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+# CLOUDINARY_API_KEY=your_cloudinary_key
+# CLOUDINARY_API_SECRET=your_cloudinary_secret
+
+npm start
 ```
 
-This provides a streamlined report focused on AI-generation patterns and plagiarism detection:
-
-```
-Options:
-  --file, -f FILE       PDF file to check for AI-generated content
-  --subject, -s SUBJECT Subject of the assignment (default: 'Artificial Intelligence')
-  --model, -m PATH      Path to the Phi-2 model file
-  --docker, -d          Use Docker for isolation (default: false)
-  --skip-scrape         Skip Wikipedia scraping and use existing references
-  --verbose, -v         Show detailed logging information
-```
-
-## Installation
-
-1. Clone the repository
-2. Install dependencies:
+### 3. Frontend Setup
 ```bash
+cd client
+npm install
+npm run dev
+```
+
+### 4. AI Engine Setup
+```bash
+cd AI_analysis_engine
 pip install -r requirements.txt
-```
-3. Install system dependencies (for Ubuntu/Debian):
-```bash
-apt-get update && apt-get install -y poppler-utils chromium-browser
-```
-4. Download the Phi-2 LLM model:
-```bash
+
+# Download OCR models
+python download_ocr_models.py
+
+# Download Phi-2 LLM model (optional)
 wget https://huggingface.co/TheBloke/phi-2-GGUF/resolve/main/phi-2.Q4_K_M.gguf -O phi-2.Q4_K_M.gguf
 ```
 
-## Usage
-
-### Basic Workflow
-
-There are two ways to run the workflow:
-
-#### Option 1: Using the run_workflow.sh Script
-
+### 5. Blockchain Setup (Optional)
 ```bash
-# Make the script executable
-chmod +x run_workflow.sh
+cd NFT_part
+pip install moccasin
 
-# Run with default parameters (will use data/sample.pdf)
-./run_workflow.sh
-
-# Run with custom parameters
-./run_workflow.sh --subject "Mathematics" --file data/sample1.pdf --id MATH12345 --max-results 10 --timeout 300
+# Configure networks in moccasin.toml
+# Deploy contract (if needed)
+moccasin run deploy
 ```
 
-#### Option 2: Using the run.py Python Script
+## 📖 Usage Guide
 
+### For Students
+
+1. **Connect Wallet**
+   - Install MetaMask extension
+   - Connect to zkSync Sepolia testnet
+   - Get test ETH from faucet
+
+2. **Submit Assignment**
+   - Upload PDF document
+   - Specify subject area
+   - Monitor validation progress
+   - Wait for AI analysis completion
+
+3. **Mint Certificate**
+   - Complete all validation steps
+   - Ensure wallet is connected
+   - Click "Mint Certificate"
+   - Confirm blockchain transaction
+
+4. **View Certificates**
+   - Access NFT Dashboard
+   - View certificate collection
+   - Share or verify certificates
+
+### For Developers
+
+#### Running AI Analysis
 ```bash
-# Make the script executable
-chmod +x run.py
+cd AI_analysis_engine
 
-# Run the entire workflow (scraping + sandbox processing)
-./run.py --subject "Computer Science" --document data/sample.pdf --id ASG12345
+# Basic analysis
+python main.py --file data/assignment.pdf --subject "Computer Science" --id ASG001
+
+# With enhanced detection
+python enhanced_detection.py --file data/assignment.pdf --subject "Machine Learning"
+
+# Using Docker sandbox
+docker build -t certimint-ai .
+docker run --network=none -v $(pwd)/data:/app/data certimint-ai
 ```
 
-### Advanced Usage
-
-You can also run each component separately:
-
+#### Smart Contract Interaction
 ```bash
-# Step 1: Only run web scraping with custom parameters
-python web_scraper.py --subject "Mathematics" --output data/math_references.json --max-results 10
+cd NFT_part
 
-# Step 2: Only run processing in sandbox with pre-scraped references
-python main.py --file data/sample.pdf --subject "Mathematics" --id MATH12345 --references data/math_references.json
+# Deploy new contract
+moccasin run deploy
+
+# Mint NFT certificate
+moccasin run mint_nft
+
+# Verify contract on explorer
+moccasin verify --contract-address 0x... --network zksync-sepolia
 ```
 
-### Handling Failures
-
-The system is designed to be robust:
-
-- If web scraping fails, the system will attempt to use existing reference data or create mock references
-- If the OCR process fails, it will fall back to a simplified OCR implementation
-- If the LLM model is unavailable or fails to load, it will use a mock LLM implementation
-- Timeouts are implemented to prevent the process from hanging
-
-### API Server
-
-The system can also be deployed as an API server:
-
+#### API Endpoints
 ```bash
-python api_server.py
+# Backend API endpoints
+GET    /api/assignments          # Get all assignments
+POST   /api/upload               # Upload assignment
+GET    /api/assignments/:id      # Get specific assignment
+POST   /api/validate             # Trigger AI validation
+GET    /api/reviewed/:userId     # Get user's reviewed assignments
 ```
 
-## Sandbox Security
+## 🔧 Configuration
 
-The system implements multiple layers of security to ensure complete network isolation during the LLM processing phase:
+### Environment Variables
 
-### Network Isolation Mechanisms
-
-1. **Docker Network Isolation**: The container runs with `--network=none` flag for complete network isolation
-2. **Environment Variables**: Force libraries to operate in offline mode
-3. **Network Monitoring**: Active tcpdump monitoring tracks any unauthorized network activity
-4. **Isolation Verification**: Socket connection tests at startup verify proper isolation
-5. **Clear Security Alerts**: Immediate warnings if any isolation breach is detected
-
-### Test Environment Setup
-
-For testing without Docker, use environment variables to simulate sandbox:
-```bash
-export SANDBOX_MODE=true
-export TRANSFORMERS_OFFLINE=1
-export HF_HUB_OFFLINE=1
+#### Frontend (.env)
+```env
+VITE_API_URL=http://localhost:3900
+VITE_SOCKET_URL=http://localhost:3900
+VITE_CONTRACT_ADDRESS=0x5497D3d6aE886f709a7427B1f7f8DE0A2c715bCC
 ```
 
-### Production Deployment
+#### Backend (.env)
+```env
+MONGODB_URI=mongodb+srv://...
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+PORT=3900
+```
 
-For production, the system enforces Docker with network isolation:
+#### AI Engine
+```env
+TRANSFORMERS_OFFLINE=1
+HF_HUB_OFFLINE=1
+SANDBOX_MODE=true
+MODEL_PATH=./phi-2.Q4_K_M.gguf
+```
+
+### Network Configuration
+The platform is configured for **zkSync Sepolia testnet**:
+- **Chain ID**: 300
+- **RPC URL**: https://sepolia.era.zksync.dev
+- **Explorer**: https://sepolia.explorer.zksync.io
+- **Faucet**: https://faucet.zksync.io
+
+## 🔒 Security & Sandbox
+
+### Network Isolation
+The AI analysis engine implements multiple security layers:
+
+1. **Docker Isolation**: Complete network isolation with `--network=none`
+2. **Environment Controls**: Offline mode enforcement for ML libraries
+3. **Process Monitoring**: Active network activity detection
+4. **Verification Checks**: Startup isolation validation
+
+### Sandbox Environment
 ```bash
-# Build the Docker image
-docker build -t llama-sandbox .
-
-# Run with default parameters (network isolation is enforced)
-docker run --network=none -v $(pwd)/data:/app/data -v $(pwd)/models:/app/models llama-sandbox
-
-# Run with custom parameters
+# Production deployment with network isolation
+docker build -t certimint-sandbox .
 docker run --network=none \
   -v $(pwd)/data:/app/data \
   -v $(pwd)/models:/app/models \
-  llama-sandbox python main.py \
-  --file data/sample.pdf --subject "Computer Science" --id ASG12345
-
-# Run the workflow script (automatically enforces network isolation in sandbox phase)
-docker run \
-  -v $(pwd)/data:/app/data \
-  -v $(pwd)/models:/app/models \
-  llama-sandbox ./run_workflow.sh --file data/sample.pdf --subject "Computer Science"
+  certimint-sandbox python main.py \
+  --file data/assignment.pdf \
+  --subject "Computer Science"
 ```
 
-**Note**: In production, you should run only the sandbox processing phase in the Docker container with `--network=none`. The web scraping phase should be done separately outside the container, with its results mounted into the container.
+### Security Alerts
+- Immediate warnings for isolation breaches
+- Network activity monitoring with tcpdump
+- Clear security status indicators
 
-## Files and Directory Structure
+## 📊 Validation Results
 
-- `run.py`: Main workflow script that orchestrates both phases
-- `web_scraper.py`: Collects reference content from the web
-- `ocr_processor.py`: Extracts text from PDFs and images
-- `llm_sandbox.py`: Performs sandboxed LLM analysis
-- `main.py`: Orchestrates the validation process
-- `api_server.py`: FastAPI server for web interface
-- `Dockerfile`: Container definition for isolated execution
-- `models/`: Directory for storing LLM models
-- `data/`: Directory for storing reference data and results
-
-## Output Format
-
-Results are saved as JSON files with the following structure:
-
+### Analysis Output
 ```json
 {
   "subject": "Computer Science",
   "assignment_id": "ASG12345",
-  "ocr_text_preview": "This is a preview of the extracted text...",
-  "ocr_text_length": 5000,
+  "validation_timestamp": "2024-10-15T14:30:22.123456",
   "plagiarism_check": {
     "status": "checked",
     "plagiarism_percentage": 18.5,
+    "llm_similarity": 15.2,
+    "emoji_detected": false,
+    "ai_patterns_detected": false,
     "similar_sources": [...]
   },
   "content_validation": {
-    "status": "valid",
+    "status": "PASSED",
     "relevance_score": 87,
-    "comments": "The content is mostly relevant to the subject..."
+    "subject_match": true,
+    "comments": "Content is highly relevant to Computer Science"
   },
-  "timestamp": "2024-10-15T14:30:22.123456",
+  "ai_detection": {
+    "ai_patterns_detected": false,
+    "ai_confidence": 12.5,
+    "patterns": []
+  },
   "status": "PASSED",
   "sandbox_mode": true
 }
 ```
 
-## Using the Wikipedia Scraper
+### Pass/Fail Criteria
+- ✅ **PASS**: Plagiarism < 40%, No AI patterns, Relevance > 35%, No emojis
+- ❌ **FAIL**: High plagiarism, AI patterns detected, Subject mismatch, Emojis present
 
-The project includes a dedicated Wikipedia scraper for retrieving high-quality reference information:
+## 🎯 Project Structure
 
-```bash
-# Basic usage
-python wikipedia_scraper.py --query "Machine Learning" --max-results 3
-
-# Show the browser window (non-headless mode)
-python wikipedia_scraper.py --query "Artificial Intelligence" --no-headless
-
-# Custom output location
-python wikipedia_scraper.py --query "Computer Science" --output data/my_results.json
+```
+CertiMint/
+├── client/                     # React.js Frontend
+│   ├── src/
+│   │   ├── pages/             # Main application pages
+│   │   ├── components/        # Reusable components
+│   │   ├── services/          # Web3 and API services
+│   │   └── utils/             # Utilities and constants
+│   └── package.json
+├── server/                     # Express.js Backend  
+│   ├── server.js              # Main server file
+│   ├── cloudinary.js          # File upload config
+│   └── package.json
+├── AI_analysis_engine/         # Python AI Engine
+│   ├── main.py                # Core analysis logic
+│   ├── ocr_processor.py       # PDF text extraction
+│   ├── enhanced_detection.py  # Advanced AI detection
+│   ├── llm_sandbox.py         # Sandboxed LLM processing
+│   ├── plagiarism_algorithms.py # Plagiarism detection
+│   ├── web_scraper.py         # Wikipedia reference collection
+│   └── requirements.txt
+├── NFT_part/                   # Blockchain Components
+│   ├── src/
+│   │   └── mint_certificate2.vy # Smart contract
+│   ├── deploy.py              # Deployment script
+│   ├── mint_nft.py           # NFT minting script
+│   └── moccasin.toml         # Blockchain config
+└── docker/                    # Docker configurations
 ```
 
-You can also run multiple searches using the batch script:
+## 🤝 Contributing
 
+We welcome contributions! Please follow these steps:
+
+1. **Fork the repository**
+2. **Create feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Make changes** and test thoroughly
+4. **Commit changes** (`git commit -m 'Add amazing feature'`)
+5. **Push to branch** (`git push origin feature/amazing-feature`)
+6. **Open Pull Request**
+
+### Development Guidelines
+- Follow existing code style and conventions
+- Write comprehensive tests for new features
+- Update documentation for API changes
+- Ensure all security checks pass
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+#### Wallet Connection Issues
 ```bash
-python batch_wiki_search.py
+# Ensure MetaMask is installed and connected to zkSync Sepolia
+# Check network configuration in wallet settings
 ```
 
-For a simpler example focused on divorce-related searches:
-
+#### AI Analysis Failures
 ```bash
-python divorce_wiki_search.py
+# Check Python dependencies
+pip install -r AI_analysis_engine/requirements.txt
+
+# Verify model files exist
+ls -la AI_analysis_engine/*.gguf
+
+# Check Docker isolation
+docker ps --filter "network=none"
 ```
 
-The Wikipedia scraper will:
-1. Search for your query on Wikipedia
-2. Process either direct article matches or search results
-3. Extract article content, introductions, and infobox data
-4. Save comprehensive results to a JSON file
+#### Smart Contract Errors
+```bash
+# Verify contract deployment
+moccasin run deploy --network zksync-sepolia
 
-## License
+# Check contract address in constants.js
+# Ensure sufficient testnet ETH balance
+```
 
-Copyright (c) 2024
-Ensuring newenv is gitignored
+## 📞 Support & Contact
+
+- **GitHub Issues**: [Report bugs or request features](https://github.com/Rickyy-Sam07/CertiMint-Engine/issues)
+- **Discussions**: [Community discussions](https://github.com/Rickyy-Sam07/CertiMint-Engine/discussions)
+- **Email**: contact@certimint.com
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🎖️ Acknowledgments
+
+- **OpenAI** - GPT models for AI detection research
+- **HuggingFace** - Transformer models and tokenizers  
+- **zkSync** - Layer 2 scaling solution
+- **PaddleOCR** - Optical character recognition
+- **Wikipedia** - Reference data source
+- **Snekmate** - Vyper contract libraries
+
+---
+
+**Built with ❤️ by the CertiMint Team**
+
+*Securing academic integrity through blockchain technology and AI-powered validation.*
