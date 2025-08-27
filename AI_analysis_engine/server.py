@@ -13,7 +13,7 @@ import urllib3  # Add this for disabling warnings
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Configure ngrok
-ngrok.set_auth_token("ngrok api key here")  # Replace with your actual ngrok auth token
+ngrok.set_auth_token("2sHa3Dcs1starAG1B1If9ZejoO2_6dtmkjPN38SPaHYx9vJqv")  
 
 app = FastAPI()
 
@@ -98,7 +98,7 @@ async def process_pdf(payload: PDFPayload):
             try:
                 # Use verify=False to bypass SSL certificate verification
                 send_signal = requests.post(
-                    "https://261f-2401-4900-314d-5658-9ce7-e0a1-a837-5cb3.ngrok-free.app/receive-signal-from-ai-pipeline",
+                    "https://certimint.onrender.com/receive-signal-from-ai-pipeline",
                     json=payload,
                     headers={"Content-Type": "application/json"},
                     verify=False  # Bypass SSL verification for self-signed cert

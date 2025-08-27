@@ -85,7 +85,8 @@ def detect_human_writing_patterns(text):
         "spelling_errors": 0,
         "grammar_variations": 0,
         "personal_opinions": 0,
-        "author_attribution": 0
+        "author_attribution": 0,
+        "handwritten_markers": 0
     }
     
     text_lower = text.lower()
@@ -110,6 +111,14 @@ def detect_human_writing_patterns(text):
     if "created by" in text_lower or "b.tech" in text_lower or any(year in text for year in ["2023", "2024", "2025", "2026", "2027"]):
         indicators["author_attribution"] = 10
     
+    # Handwritten content markers (OCR artifacts)
+    mixed_case_count = len(re.findall(r'[a-z][A-Z]', text))
+    multiple_spaces = len(re.findall(r'\s{2,}', text))
+    short_lines = len([line for line in text.split('\n') if 0 < len(line.strip()) < 10])
+    
+    if mixed_case_count > 3 or multiple_spaces > 8 or short_lines > 5:
+        indicators["handwritten_markers"] = 20
+    
     return indicators
 
 def calculate_human_bonus(text, human_indicators):
@@ -122,9 +131,10 @@ def calculate_human_bonus(text, human_indicators):
     bonus += human_indicators["informal_language"] * 1
     bonus += human_indicators["spelling_errors"] * 2  # Natural human errors
     bonus += human_indicators["personal_opinions"] * 0.5
+    bonus += human_indicators["handwritten_markers"] * 3  # Strong handwritten indicator
     
-    # Cap the bonus at 25 points
-    return min(bonus, 25.0)
+    # Cap the bonus at 45 points for handwritten content
+    return min(bonus, 45.0)
 
 def _default_result():
     """Default result for insufficient content"""

@@ -11,7 +11,7 @@ def upload_result():
         from pymongo import MongoClient
         
         # MongoDB connection string
-        connection_string = 'your connection string here'
+        connection_string = 'mongodb+srv://sambhranta1123:SbGgIK3dZBn9uc2r@cluster0.jjcc5or.mongodb.net/'
         db_name = 'certimint'
         collection_name = 'assignments'
         

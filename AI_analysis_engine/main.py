@@ -10,8 +10,7 @@ import socket
 import re
 import enhanced_detection
 from ocr_processor import OCRProcessor
-from llm_sandbox import SandboxedLLM
-from llm_loader import load_model
+from embedding_llm import EmbeddingLLM
 
 # Configure logging
 logging.basicConfig(
@@ -21,9 +20,9 @@ logging.basicConfig(
 logger = logging.getLogger('main')
 
 class AssignmentValidator:
-    def __init__(self, model_path, references_path="data/references.json"):
+    def __init__(self, model_type="embedding", references_path="data/references.json"):
         # Initialize components
-        self.model_path = model_path
+        self.model_type = model_type
         self.references_path = references_path
         
         # Load model
@@ -36,12 +35,12 @@ class AssignmentValidator:
         self.ocr = self._initialize_ocr()
     
     def _load_model(self):
-        """Load the LLM model"""
-        logger.info(f"Loading model from: {self.model_path}")
+        """Load the embedding models"""
+        logger.info("Loading embedding models")
         try:
-            return SandboxedLLM(self.model_path)
+            return EmbeddingLLM()
         except Exception as e:
-            logger.error(f"Error loading model: {e}")
+            logger.error(f"Error loading models: {e}")
             return None
     
     def _load_references(self):
@@ -113,7 +112,7 @@ class AssignmentValidator:
         # Check relevance
         try:
             logger.info("Checking relevance")
-            validation = enhanced_detection.check_relevance_with_models(ocr_text[:300], subject)
+            validation = enhanced_detection.check_relevance_with_models(ocr_text, subject)
             result["content_validation"] = validation
             logger.info(f"Relevance score: {validation.get('relevance_score', 0)}%")
         except Exception as e:
@@ -122,7 +121,7 @@ class AssignmentValidator:
             validation = {"status": "ERROR", "relevance_score": 0}
         
         # Determine final status
-        strict_mode = False
+        strict_mode = False  # Default to lenient mode
         try:
             if os.path.exists("data/info.json"):
                 with open("data/info.json", "r") as f:
@@ -131,14 +130,10 @@ class AssignmentValidator:
         except:
             pass
         
-        # Use lower thresholds in strict mode
-        if strict_mode:
-            plagiarism_threshold = 65
-            relevance_threshold = 60
-            logger.info("Using strict detection thresholds")
-        else:
-            plagiarism_threshold = 75
-            relevance_threshold = 40
+        # Fixed thresholds
+        plagiarism_threshold = 35
+        relevance_threshold = 48
+        logger.info(f"Using fixed thresholds: Plagiarism > {plagiarism_threshold}%, Relevance < {relevance_threshold}%")
         
         # Check failure conditions
         failure_reasons = []
@@ -175,7 +170,7 @@ def main():
     parser.add_argument("--file", required=True, help="Path to assignment file")
     parser.add_argument("--subject", required=True, help="Subject of the assignment")
     parser.add_argument("--id", required=True, help="Assignment ID")
-    parser.add_argument("--model", default="phi-2.Q4_K_M.gguf", help="Path to LLM model")
+    parser.add_argument("--model", default="embedding", help="Model type (embedding)")
     args = parser.parse_args()
     
     validator = AssignmentValidator(args.model)
