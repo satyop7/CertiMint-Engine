@@ -16,6 +16,7 @@ CertiMint is a full-stack solution consisting of three main components:
 - Subject relevance validation using NLP and keyword analysis
 - Secure sandbox environment for isolated processing
 - OCR processing for PDF documents
+-reasoning is given using open source model phi 2
 
 ### 2. **Blockchain NFT System**
 - Smart contracts written in Vyper for zkSync Sepolia testnet
@@ -34,7 +35,7 @@ CertiMint is a full-stack solution consisting of three main components:
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Frontend      │    │    Backend      │    │  AI Engine     │
+│   Frontend      │    │    Backend      │    │  AI Engine+ phi2     │
 │   (React.js)    │◄──►│  (Express.js)   │◄──►│  (Python)      │
 │                 │    │   + MongoDB     │    │                 │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
